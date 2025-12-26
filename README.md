@@ -1,6 +1,7 @@
 ## Geiger sensor
 
 ![Custom display](doc/display.png "Custom display")
+![Custom display digit](doc/display_digit.png "Custom display digit")
 
 ## Schematics
 ![MCU sch](doc/mcu_sch.png "MCU sch")
