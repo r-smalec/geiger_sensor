@@ -34,32 +34,30 @@ void HT1622_Init(HT1622_HandleTypeDef *ht,
 
 void HT1622_Config(HT1622_HandleTypeDef *ht) {
 
-    HT1622_SendCommand(ht, CMD_SYS_EN);
-    HAL_Delay(100);
-    HT1622_SendCommand(ht, CMD_RC_32K);
-    HAL_Delay(100);
-    HT1622_SendCommand(ht, CMD_LCD_ON);
+	HAL_Delay(10);
+	HT1622_SendCommand(ht, CMD_SYS_EN);
 
+    HAL_Delay(10);
+    HT1622_SendCommand(ht, CMD_LCD_ON);
 }
 
 void HT1622_WriteBit(HT1622_HandleTypeDef *ht, uint8_t bit) {
 
-    HAL_GPIO_WritePin(ht->_dat_port, ht->_dat_pin,
+
+	HT1622_Delay();
+	HAL_GPIO_WritePin(ht->_wr_port, ht->_wr_pin, 0);
+
+	HAL_GPIO_WritePin(ht->_dat_port, ht->_dat_pin,
                       bit ? 1 : 0);
 
-    HT1622_Delay();
-
-    HAL_GPIO_WritePin(ht->_wr_port, ht->_wr_pin, 0);
     HT1622_Delay();
     HAL_GPIO_WritePin(ht->_wr_port, ht->_wr_pin, 1);
 }
 
 void HT1622_WriteBits(HT1622_HandleTypeDef *ht, uint16_t data, uint8_t bits) {
 
-    for (uint8_t i = 0; i < bits; i++)
-    {
-        HT1622_WriteBit(ht, data & 0x01);
-        data = data >> 1;
+    for (int8_t i = bits - 1; i >= 0; i--) {
+        HT1622_WriteBit(ht, (data >> i) & 0x01);
     }
 }
 

@@ -106,7 +106,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HT1622_Init(&ht1622_1, DAT_GPIO_Port, DAT_Pin, WR_GPIO_Port, WR_Pin, RD_GPIO_Port, RD_Pin, CS_GPIO_Port, CS_Pin);
   HT1622_Config(&ht1622_1);
-  HT1622_WriteAllData(&ht1622_1);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
