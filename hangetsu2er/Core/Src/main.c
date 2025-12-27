@@ -51,7 +51,7 @@ UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 
-HT1622_HandleTypeDef display1;
+HT1622_HandleTypeDef ht1622_1;
 
 /* USER CODE END PV */
 
@@ -104,8 +104,9 @@ int main(void)
   MX_TIM2_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  HT1622_Init(&display1, DAT_GPIO_Port, DAT_Pin, WR_GPIO_Port, WR_Pin, RD_GPIO_Port, RD_Pin, CS_GPIO_Port, CS_Pin);
-
+  HT1622_Init(&ht1622_1, DAT_GPIO_Port, DAT_Pin, WR_GPIO_Port, WR_Pin, RD_GPIO_Port, RD_Pin, CS_GPIO_Port, CS_Pin);
+  HT1622_Config(&ht1622_1);
+  HT1622_WriteAllData(&ht1622_1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
