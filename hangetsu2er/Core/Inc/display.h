@@ -33,44 +33,45 @@
 #define CMD_TEST        0xE0  // TEST       (1110-0000-X) Test mode, user don't use.
 #define CMD_NORMAL      0xE3  // NORMAL     (1110-0011-X) Normal mode [Yes Default]
 
-#define SEG0_0   0x00
-#define SEG0_4   0x01
-#define SEG1_0   0x02
-#define SEG1_4   0x03
-#define SEG2_0   0x04
-#define SEG2_4   0x05
-#define SEG3_0   0x06
-#define SEG3_4   0x07
-#define SEG4_0   0x08
-#define SEG4_4   0x09
-#define SEG5_0   0x0A
-#define SEG5_4   0x0B
-#define SEG6_0   0x0C
-#define SEG6_4   0x0D
-#define SEG7_0   0x0E
-#define SEG7_4   0x0F
-#define SEG8_0   0x10
-#define SEG8_4   0x11
-#define SEG9_0   0x12
-#define SEG9_4   0x13
-#define SEG10_0  0x14
-#define SEG10_4  0x15
-#define SEG11_0  0x16
-#define SEG11_4  0x17
-#define SEG12_0  0x18
-#define SEG12_4  0x19
-#define SEG13_0  0x1A
-#define SEG13_4  0x1B
-#define SEG14_0  0x1C
-#define SEG14_4  0x1D
-#define SEG15_0  0x1E
-#define SEG15_4  0x1F
-#define SEG16_0  0x20
-#define SEG16_4  0x21
-#define SEG17_0  0x22
-#define SEG17_4  0x23
+#define SEG1_0   0x00
+#define SEG1_4   0x01
+#define SEG2_0   0x02
+#define SEG2_4   0x03
+#define SEG3_0   0x04
+#define SEG3_4   0x05
+#define SEG4_0   0x06
+#define SEG4_4   0x07
+#define SEG5_0   0x08
+#define SEG5_4   0x09
+#define SEG6_0   0x0A
+#define SEG6_4   0x0B
+#define SEG7_0   0x0C
+#define SEG7_4   0x0D
+#define SEG8_0   0x0E
+#define SEG8_4   0x0F
+#define SEG9_0   0x10
+#define SEG9_4   0x11
+#define SEG10_0  0x12
+#define SEG10_4  0x13
+#define SEG11_0  0x14
+#define SEG11_4  0x15
+#define SEG12_0  0x16
+#define SEG12_4  0x17
+#define SEG13_0  0x18
+#define SEG13_4  0x19
+#define SEG14_0  0x1A
+#define SEG14_4  0x1B
+#define SEG15_0  0x1C
+#define SEG15_4  0x1D
+#define SEG16_0  0x1E
+#define SEG16_4  0x1F
+#define SEG17_0  0x20
+#define SEG17_4  0x21
+#define SEG18_0  0x22
+#define SEG18_4  0x23
 
-#define SEG_NO 18
+
+#define SEG_NO 34
 
 typedef struct {
 
@@ -96,12 +97,18 @@ void HT1622_Init(HT1622_HandleTypeDef *ht,
                  GPIO_TypeDef *rd_port,  uint16_t rd_pin,
                  GPIO_TypeDef *cs_port,  uint16_t cs_pin);
 
+void HT1622_FillBuff(uint8_t val);
 void HT1622_Config(HT1622_HandleTypeDef *ht);
 
 void HT1622_WriteBit(HT1622_HandleTypeDef *ht, uint8_t bit);
-void HT1622_WriteBits(HT1622_HandleTypeDef *ht, uint16_t data, uint8_t bits);
+void HT1622_WriteBitsMSF(HT1622_HandleTypeDef *ht, uint16_t data, uint8_t bits);
+void HT1622_WriteBitsLSF(HT1622_HandleTypeDef *ht, uint16_t data, uint8_t bits);
 void HT1622_SendCommand(HT1622_HandleTypeDef *ht, uint8_t cmd);
 void HT1622_WriteData(HT1622_HandleTypeDef *ht, uint8_t addr, uint8_t data);
 void HT1622_WriteAllData(HT1622_HandleTypeDef *ht);
+
+void Display_7Seg_Up(HT1622_HandleTypeDef *ht, uint8_t col, uint8_t digit);
+void Display_7Seg_Middle(HT1622_HandleTypeDef *ht, uint8_t col, uint8_t digit);
+void Display_7Seg_Bottom(HT1622_HandleTypeDef *ht, uint8_t col, uint8_t digit);
 
 #endif

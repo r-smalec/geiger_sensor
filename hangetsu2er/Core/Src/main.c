@@ -106,11 +106,16 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HT1622_Init(&ht1622_1, DAT_GPIO_Port, DAT_Pin, WR_GPIO_Port, WR_Pin, RD_GPIO_Port, RD_Pin, CS_GPIO_Port, CS_Pin);
   HT1622_Config(&ht1622_1);
+  HAL_Delay(2000);
+  HT1622_FillBuff(0x0);
+  HT1622_WriteAllData(&ht1622_1);
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  uint8_t col = 1;
+  uint8_t digit = 0;
   while (1)
   {
     /* USER CODE END WHILE */
@@ -118,12 +123,30 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	    if (HAL_GPIO_ReadPin(S3_GPIO_Port, S3_Pin) == GPIO_PIN_SET)
 	    {
-	      HAL_GPIO_WritePin(BCKL_GPIO_Port, BCKL_Pin, GPIO_PIN_SET);
+	      HAL_GPIO_WritePin(BCKL_GPIO_Port, BCKL_Pin, GPIO_PIN_RESET);
 	    }
 	    else
 	    {
-	      HAL_GPIO_WritePin(BCKL_GPIO_Port, BCKL_Pin, GPIO_PIN_RESET);
+	      HAL_GPIO_WritePin(BCKL_GPIO_Port, BCKL_Pin, GPIO_PIN_SET);
 	    }
+
+	    Display_7Seg_Up(&ht1622_1, col, digit);
+	    Display_7Seg_Middle(&ht1622_1, col, digit);
+	    Display_7Seg_Bottom(&ht1622_1, col, digit);
+
+
+	    if(digit < 10)
+	    	digit++;
+	    else {
+	    	digit = 0;
+
+	    	if(col < 4)
+				col++;
+			else
+				col = 1;
+	    }
+
+	    HAL_Delay(200);
   }
   /* USER CODE END 3 */
 }
